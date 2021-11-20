@@ -44,8 +44,8 @@ static uint8_t Send_CheckData(_ano *ano);			//发送数据和校验&附加校验
 
 /****** 用户可调用函数 ******/
 void Ano_Init(void); 												//参数初始化
-void Ano_Send_Data(uint8_t id, void *Data, uint8_t lenth);			//发送数据函数
-void Ano_Refresh_Synchronous(void);
+void Ano_Send_Data(uint8_t id,int16_t Data1,int16_t Data2,int16_t Data3,int16_t Data4,int16_t Data5,
+	                          int16_t Data6,int16_t Data7,int16_t Data8,int16_t Data9,int16_t Data10,uint8_t lenth);	//发送函数void Ano_Refresh_Synchronous(void);
 #endif
 /* File Of End ------------------------------------------------------------------------------*/
 

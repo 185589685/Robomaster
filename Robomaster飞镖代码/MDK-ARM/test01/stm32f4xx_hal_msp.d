@@ -37,7 +37,7 @@ test01\stm32f4xx_hal_msp.o: ../Core/Inc/main.h
 test01\stm32f4xx_hal_msp.o: ..\Apps\APP_CAN.h
 test01\stm32f4xx_hal_msp.o: ..\Basis\Basis_CAN.h
 test01\stm32f4xx_hal_msp.o: ../Core/Inc/can.h
-test01\stm32f4xx_hal_msp.o: ..\Algorithm\pid.h
+test01\stm32f4xx_hal_msp.o: ..\Algorithm\Contorl\pid.h
 test01\stm32f4xx_hal_msp.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 test01\stm32f4xx_hal_msp.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 test01\stm32f4xx_hal_msp.o: ..\Detection\MyAon.h

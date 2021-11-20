@@ -32,7 +32,7 @@
 #include "math.h"
 #include "tim.h"
 #include "APP_StepperMotor.h"
-
+#include "Kalman_Filter.h"
 
 /* USER CODE END Includes */
 
@@ -242,10 +242,10 @@ void CAN1_RX0_IRQHandler(void)
 		 char i;
 		 i = get_can_data.can_recevice.StdId  - CAN_M3508_Base_ID - 1;//判断现在的电机ID为第几位
 		
-		 moto_chassis[i].angle            = (unsigned short int)(get_can_data.can_receive_data[0]<<8|get_can_data.can_receive_data[1]); //将读取到的数组的第0位和第1位拼凑起来组成完整的角度信息，并用int强制转化成十进制的数
-		 moto_chassis[i].speed_rpm        = (signed   short int)(get_can_data.can_receive_data[2]<<8|get_can_data.can_receive_data[3]); //将读取到的数组的第2位和第3位拼凑起来组成完整的转速信息，并用int强制转化成十进制的数
-		 moto_chassis[i].current          = (signed   short int)(get_can_data.can_receive_data[4]<<8|get_can_data.can_receive_data[5])*5.f/16384.f*50;//原本读取的是转矩，通过计算将读取到的转矩转化成了电流
-		 moto_chassis[i].temperature      = (unsigned short int)(get_can_data.can_receive_data[6]);
+		 moto_chassis[i].angle       = (unsigned short int)(get_can_data.can_receive_data[0]<<8|get_can_data.can_receive_data[1]); //将读取到的数组的第0位和第1位拼凑起来组成完整的角度信息，并用int强制转化成十进制的数
+		 moto_chassis[i].speed_rpm   = (signed   short int)(get_can_data.can_receive_data[2]<<8|get_can_data.can_receive_data[3]); //将读取到的数组的第2位和第3位拼凑起来组成完整的转速信息，并用int强制转化成十进制的数
+		 moto_chassis[i].current     = (signed   short int)(get_can_data.can_receive_data[4]<<8|get_can_data.can_receive_data[5])*5.f/16384.f*50;//原本读取的是转矩，通过计算将读取到的转矩转化成了电流
+		 moto_chassis[i].temperature = (unsigned short int)(get_can_data.can_receive_data[6]);
 	    }
 		 break;
 	}	
@@ -287,12 +287,12 @@ if(HAL_TIM_Base_GetState(&htim1) == TIM_FLAG_UPDATE){
 	//放大电流变化，方便调参
 	//M3508[1].realCurrent *= 10;
 /*********************************************匿名上位机的数据发送*********************************************/	
-   Ano_Send_Data(0xF1,&M3508[1].realCurrent  ,sizeof(M3508[1].realCurrent));
-   Ano_Send_Data(0xF2,&M3508[1].targetCurrent,sizeof(M3508[1].targetCurrent));
+//   Ano_Send_Data(0xF1,&M3508[1].realCurrent  ,sizeof(M3508[1].realCurrent));
+//   Ano_Send_Data(0xF2,&M3508[1].targetCurrent,sizeof(M3508[1].targetCurrent));
 	
-   Ano_Send_Data(0xF3,&M3508[1].realSpeed    ,sizeof(M3508[1].realSpeed));
-   Ano_Send_Data(0xF4,&M3508[1].targetSpeed  ,sizeof(M3508[1].targetSpeed));
-   Ano_Refresh_Synchronous();
+   Ano_Send_Data(0xF1,M3508[3].realSpeed,M3508[3].targetSpeed,0,0,0,0,0,0,0,0,20);
+//   Ano_Send_Data(0xF1,M3508[3].targetSpeed  ,sizeof(M3508[1].targetSpeed));
+//   Ano_Refresh_Synchronous();
 // Ano_Send_Data(0xF5,&M3508[0].incremental_pid.output_value,sizeof(M3508[0].incremental_pid.output_value));
 // Ano_Send_Data(0xF6,&M3508[1].incremental_pid.output_value,sizeof(M3508[1].incremental_pid.output_value));
 /**************************************************************************************************************/
@@ -311,27 +311,37 @@ if(HAL_TIM_Base_GetState(&htim1) == TIM_FLAG_UPDATE){
 void TIM2_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM2_IRQn 0 */
-if(HAL_TIM_Base_GetState(&htim2) == TIM_FLAG_UPDATE){
-/******************************************遥控器反馈值传给pid计算的目标值***************************************/
-//		   M3508[0].targetSpeed   =  DR16.rc.ch3 * 10 ; /*目标速度 = 左拨杆值 *   10 */
-//		   M3508[1].targetSpeed   =  DR16.rc.ch3 * 10 ; /*目标速度 = 左拨杆值 * (-10)*/
-//    	   M3508[1].targetCurrent =  DR16.rc.ch3;//660)*1 0 ;
-/****************************************************************************************************************/
-	
+if(HAL_TIM_Base_GetState(&htim2) == TIM_FLAG_UPDATE){	
 /***************************************************PID的计算**************************************************/	
 																				   //15,0.005,0.005
 //	       Position_PID(&M3508[0].Speed.position_pid,M3508[0].realSpeed,M3508[0].targetSpeed,15,0.001,0.001);//
 //		   Position_PID(&M3508[1].Speed.position_pid,M3508[1].realSpeed,M3508[1].targetSpeed,15,0.001,0.001);//
 //         M3508[1].targetCurrent =	 		  	
+           Incremental_PID(&M3508[0].Speed.incremental_pid  ,M3508[0].realSpeed  ,M3508[0].targetSpeed  ,10,0.8,0.5,6600);      //增量式速度环
            Incremental_PID(&M3508[1].Speed.incremental_pid  ,M3508[1].realSpeed  ,M3508[1].targetSpeed  ,10,0.8,0.5,6600);      //增量式速度环
+           Incremental_PID(&M3508[2].Speed.incremental_pid  ,M3508[2].realSpeed  ,M3508[2].targetSpeed  ,10,0.8,0.5,6600);      //增量式速度环
+           Incremental_PID(&M3508[3].Speed.incremental_pid  ,M3508[3].realSpeed  ,M3508[3].targetSpeed  ,10,0.8,0.5,6600);      //增量式速度环
+	if(fabs((double)(M3508[0].Speed.incremental_pid.error))>500||fabs((double)(M3508[1].Speed.incremental_pid.error))>500||fabs((double)(M3508[2].Speed.incremental_pid.error))>500||fabs((double)(M3508[3].Speed.incremental_pid.error))>500){
+	for(char i = 0;i < 8;i++){
+	       KalmanFilter(&KFP_height[i],M3508[i].Speed.incremental_pid.output_value);      
+    	}
+	           CAN_SendData(&Send_CAN_DATA,0x200,KFP_height[0].out,KFP_height[1].out,KFP_height[2].out,KFP_height[3].out); } 
+
+    else{
+	
+	           CAN_SendData(&Send_CAN_DATA,0x200,M3508[0].Speed.incremental_pid.output_value,M3508[1].Speed.incremental_pid.output_value,M3508[2].Speed.incremental_pid.output_value,M3508[3].Speed.incremental_pid.output_value); } 
+
+	
+	
 //	       Incremental_PID(&M3508[1].Current.incremental_pid,M3508[1].realCurrent,M3508[1].targetCurrent,KP1,KI1,KD1,16384); //增量式电流环
 //	  	   Incremental_PID(&M3508[0],M3508[0].incremental_pid.Measure,M3508[0].targetSpeed,KP1,KI1,KD1);
 
 /**************************************************************************************************************/		
 
 /****************************************************CAN的发送*************************************************/
-  CAN_SendData(&Send_CAN_DATA,0x200,M3508[0].Current.incremental_pid.output_value,M3508[1].Speed.incremental_pid.output_value,0,0);
-  CAN_SendData(&Send_CAN_DATA,0x1FF,0,0,0,0);
+  //CAN_SendData(&Send_CAN_DATA,0x200,M3508[0].Speed.incremental_pid.output_value,M3508[1].Speed.incremental_pid.output_value,M3508[2].Speed.incremental_pid.output_value,M3508[3].Speed.incremental_pid.output_value);
+//  CAN_SendData(&Send_CAN_DATA,0x200,0,0,0,KFP_height.out);
+ // CAN_SendData(&Send_CAN_DATA,0x1FF,0,0,0,0);
 /**************************************************************************************************************/
 __HAL_TIM_CLEAR_FLAG(&htim2,TIM_FLAG_UPDATE);
 }

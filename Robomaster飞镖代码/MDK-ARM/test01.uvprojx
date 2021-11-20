@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F427xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;..\Algorithm;..\Core;..\Detection;..\Basis;..\Apps</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;..\Algorithm;..\Core;..\Detection;..\Basis;..\Apps;..\Algorithm\Contorl;..\Algorithm\Filter</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -555,7 +555,12 @@
             <File>
               <FileName>pid.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Algorithm\pid.c</FilePath>
+              <FilePath>..\Algorithm\Contorl\pid.c</FilePath>
+            </File>
+            <File>
+              <FileName>Kalman_Filter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Algorithm\Filter\Kalman_Filter.c</FilePath>
             </File>
           </Files>
         </Group>

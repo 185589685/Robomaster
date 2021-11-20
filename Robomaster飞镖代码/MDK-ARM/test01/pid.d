@@ -1,5 +1,5 @@
-test01\pid.o: ..\Algorithm\pid.c
-test01\pid.o: ..\Algorithm\pid.h
+test01\pid.o: ..\Algorithm\Contorl\pid.c
+test01\pid.o: ..\Algorithm\Contorl\pid.h
 test01\pid.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 test01\pid.o: ../Core/Inc/stm32f4xx_hal_conf.h
 test01\pid.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h
@@ -39,7 +39,7 @@ test01\pid.o: ../Core/Inc/main.h
 test01\pid.o: ..\Apps\APP_CAN.h
 test01\pid.o: ..\Basis\Basis_CAN.h
 test01\pid.o: ../Core/Inc/can.h
-test01\pid.o: ..\Algorithm\pid.h
+test01\pid.o: ..\Algorithm\Contorl\pid.h
 test01\pid.o: ..\Detection\MyAon.h
 test01\pid.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 test01\pid.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h

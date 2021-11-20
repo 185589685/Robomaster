@@ -80,13 +80,14 @@ void DR16_Process(uint8_t* pData)
 		case 1:
 		        M3508[0].targetSpeed   =  DR16.rc.ch3 *   10 ; /*目标速度 = 左拨杆值 *   10 */
 		        M3508[1].targetSpeed   =  DR16.rc.ch3 * (-10) ; /*目标速度 = 左拨杆值 * (-10)*/ 
+		        break;
 		case 3: 
 			    M3508[0].targetSpeed   =  DR16.rc.ch3 *   10 ; /*目标速度 = 左拨杆值 *   10 */
 		        M3508[1].targetSpeed   =  DR16.rc.ch3 * (-10) ; /*目标速度 = 左拨杆值 * (-10)*/ ;
-			    M3508[3].targetSpeed   =  DR16.rc.ch3 *   10 ; /*目标速度 = 左拨杆值 *   10 */
-		        M3508[4].targetSpeed   =  DR16.rc.ch3 * (-10) ; /*目标速度 = 左拨杆值 * (-10)*/ ;
-
-		case 2: ;
+			    M3508[2].targetSpeed   =  DR16.rc.ch3 *   10 ; /*目标速度 = 左拨杆值 *   10 */
+		        M3508[3].targetSpeed   =  DR16.rc.ch3 * (-10) ; /*目标速度 = 左拨杆值 * (-10)*/ ;
+                break;
+		case 2:  break; 
 	
 	}
 }

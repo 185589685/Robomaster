@@ -39,7 +39,7 @@ test01\app_steppermotor.o: ../Core/Inc/main.h
 test01\app_steppermotor.o: ..\Apps\APP_CAN.h
 test01\app_steppermotor.o: ..\Basis\Basis_CAN.h
 test01\app_steppermotor.o: ../Core/Inc/can.h
-test01\app_steppermotor.o: ..\Algorithm\pid.h
+test01\app_steppermotor.o: ..\Algorithm\Contorl\pid.h
 test01\app_steppermotor.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 test01\app_steppermotor.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 test01\app_steppermotor.o: ..\Detection\MyAon.h

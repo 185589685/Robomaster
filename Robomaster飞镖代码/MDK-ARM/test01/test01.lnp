@@ -29,6 +29,7 @@
 "test01\debug_datascope.o"
 "test01\myaon.o"
 "test01\pid.o"
+"test01\kalman_filter.o"
 "test01\app_can.o"
 "test01\app_dr16.o"
 "test01\app_steppermotor.o"

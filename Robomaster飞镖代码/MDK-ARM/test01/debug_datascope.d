@@ -38,7 +38,7 @@ test01\debug_datascope.o: ..\Apps\APP_CAN.h
 test01\debug_datascope.o: ..\Basis\Basis_CAN.h
 test01\debug_datascope.o: ../Core/Inc/can.h
 test01\debug_datascope.o: ../Core/Inc/main.h
-test01\debug_datascope.o: ..\Algorithm\pid.h
+test01\debug_datascope.o: ..\Algorithm\Contorl\pid.h
 test01\debug_datascope.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 test01\debug_datascope.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 test01\debug_datascope.o: ..\Detection\MyAon.h

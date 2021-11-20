@@ -72,20 +72,30 @@ static uint8_t Send_CheckData(_ano *ano)
  * 	形	参:	id->功能码（0xF1-0xFA） *Data->发送的数据 lenth->数据长度（sizeof）
  *	返回值:	无
 **/
-void Ano_Send_Data(uint8_t id, void *Data, uint8_t lenth)	//发送函数
+void Ano_Send_Data(uint8_t id,int16_t Data1,int16_t Data2,int16_t Data3,int16_t Data4,int16_t Data5,
+	                          int16_t Data6,int16_t Data7,int16_t Data8,int16_t Data9,int16_t Data10,uint8_t lenth)	//发送函数
 {
 	static uint8_t check;
 	MyAno.ID = id;
 	MyAno.Lenth = lenth;
 	
-	uint16_t *data = Data;
+//	uint16_t data = Data;
 //	if(*data > 10000)
 //	{
 //		*data=0;
 //	}
 
 	memcpy(MyAno.SendBuff,(uint8_t*)&MyAno,4);
-	memcpy(MyAno.SendBuff + 4,data,lenth);
+	memcpy(MyAno.SendBuff + 4 ,&Data1,2);
+	memcpy(MyAno.SendBuff + 6 ,&Data2,2);
+	memcpy(MyAno.SendBuff + 8 ,&Data3,2);
+	memcpy(MyAno.SendBuff + 10,&Data4,2);
+	memcpy(MyAno.SendBuff + 12,&Data5,2);
+	memcpy(MyAno.SendBuff + 14,&Data6,2);
+	memcpy(MyAno.SendBuff + 16,&Data7,2);
+	memcpy(MyAno.SendBuff + 18,&Data8,2);
+	memcpy(MyAno.SendBuff + 20,&Data9,2);
+	memcpy(MyAno.SendBuff + 22,&Data10,2);
 	
 	check = Send_CheckData(&MyAno);
 	if(check)	//如果校验成功则发送数据，校验失败就丢弃此包

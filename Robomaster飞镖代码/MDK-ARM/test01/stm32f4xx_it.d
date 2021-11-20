@@ -37,7 +37,7 @@ test01\stm32f4xx_it.o: ../Core/Inc/main.h
 test01\stm32f4xx_it.o: ..\Apps\APP_CAN.h
 test01\stm32f4xx_it.o: ..\Basis\Basis_CAN.h
 test01\stm32f4xx_it.o: ../Core/Inc/can.h
-test01\stm32f4xx_it.o: ..\Algorithm\pid.h
+test01\stm32f4xx_it.o: ..\Algorithm\Contorl\pid.h
 test01\stm32f4xx_it.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 test01\stm32f4xx_it.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 test01\stm32f4xx_it.o: ..\Detection\MyAon.h
@@ -50,3 +50,4 @@ test01\stm32f4xx_it.o: ..\Apps\APP_StepperMotor.h
 test01\stm32f4xx_it.o: ../Core/Inc/tim.h
 test01\stm32f4xx_it.o: ../Core/Inc/gpio.h
 test01\stm32f4xx_it.o: ../Core/Inc/stm32f4xx_it.h
+test01\stm32f4xx_it.o: ..\Algorithm\Filter\Kalman_Filter.h

@@ -38,7 +38,7 @@ test01\basis_dr16.o: ../Core/Inc/main.h
 test01\basis_dr16.o: ..\Apps\APP_CAN.h
 test01\basis_dr16.o: ..\Basis\Basis_CAN.h
 test01\basis_dr16.o: ../Core/Inc/can.h
-test01\basis_dr16.o: ..\Algorithm\pid.h
+test01\basis_dr16.o: ..\Algorithm\Contorl\pid.h
 test01\basis_dr16.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 test01\basis_dr16.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 test01\basis_dr16.o: ..\Detection\MyAon.h

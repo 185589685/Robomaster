@@ -72,11 +72,11 @@ typedef struct{
 extern moto_measure_t moto_chassis[8];/*存储8个电机的CAN总线读取出来的真实值*/
 extern Motor_t M3508[8];/*最终存放电机所有参数的结构体*/
 extern float Incremental_PID(PID_Typedef *ptr,int32_t measured,int32_t target,float kp,float ki,float kd,int16_t Max_Output_Limit);/*增量式pid*/
-extern float    Position_PID(PID_Typedef *ptr,int32_t measured,int32_t target,float kp,float ki,float kd,int16_t Max_Output_Limit);/*位置式pid*/
-extern float      Expert_PID(PID_Typedef *ptr,float Measure,float Target,float KP, float KI, float KD, float k_gain, float k_restrain, 
+extern float Position_PID(PID_Typedef *ptr,int32_t measured,int32_t target,float kp,float ki,float kd,int16_t Max_Output_Limit);/*位置式pid*/
+extern float Expert_PID(PID_Typedef *ptr,float Measure,float Target,float KP, float KI, float KD, float k_gain, float k_restrain, 
 	                                      float High_error_margin,float Low_error_margin, float allowed_minimum_error);            /*专家pid计算*/
 extern int16_t circle_cnt;/*圈数*/
 extern int32_t Encoder_values,Last_Encoder_values;/*编码器值*/
 extern float   Zero_Treated(void);/*过零处理*/
-extern float KP1,KI1,KD1,KP2,KI2,KD2,KP3,KI3,KD3;/*pid调试所用*/
+extern float   KP1,KI1,KD1,KP2,KI2,KD2,KP3,KI3,KD3;/*pid调试所用*/
 #endif

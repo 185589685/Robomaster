@@ -37,7 +37,7 @@ test01\main.o: ../Core/Inc/main.h
 test01\main.o: ..\Apps\APP_CAN.h
 test01\main.o: ..\Basis\Basis_CAN.h
 test01\main.o: ../Core/Inc/can.h
-test01\main.o: ..\Algorithm\pid.h
+test01\main.o: ..\Algorithm\Contorl\pid.h
 test01\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 test01\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 test01\main.o: ..\Detection\MyAon.h
